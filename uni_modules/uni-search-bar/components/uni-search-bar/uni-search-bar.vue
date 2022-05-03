@@ -99,8 +99,8 @@ s<template>
 		},
 		data() {
 			return {
-				show: false,
-				showSync: false,
+				show: true,
+				showSync: true,
 				searchVal: ''
 			}
 		},
@@ -223,7 +223,7 @@ s<template>
 		/* #endif */
 		flex-direction: row;
 		position: relative;
-		padding: 10px;
+		padding: 10px 5px;
 		// background-color: #fff;
 	}
 

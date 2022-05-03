@@ -69,8 +69,14 @@
       "style": {
         "enablePullDownRefresh": false
       }
+    }, {
+      "path": "goods_list/goods_list",
+      "style": {
+        "enablePullDownRefresh": false
+      }
+
     }    ,{
-                    "path" : "goods_list/goods_list",
+                    "path" : "search/search",
                     "style" :                                                                                    
                 {
                     "navigationBarTitleText": "",

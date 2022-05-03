@@ -1,5 +1,7 @@
 <template>
   <view>
+    <!-- 顶部搜索框 -->
+    <my-search @click="gotoSearch"></my-search>
     <view class="scroll-view-container">
       <!-- 左侧 -->
       <scroll-view scroll-y="true" class="left-scroll-view" :style="{height: wh + 'px'}">
@@ -37,11 +39,17 @@
     onLoad() {
       // 获取当前系统的值,为高度动态赋值
       const syncInfo = uni.getSystemInfoSync()
-      this.wh = syncInfo.windowHeight
+      this.wh = syncInfo.windowHeight - 45
       // 获取分类数据
       this.getCateList()
     },
     methods: {
+      // 顶部搜索
+      gotoSearch() {
+        uni.navigateTo({
+          url: '/subpkg/search/search'
+        })
+      },
       // 获取分类数据
       async getCateList() {
         const {data: res} = await uni.$http.get('/categories')
