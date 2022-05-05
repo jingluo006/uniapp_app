@@ -27,7 +27,9 @@
 </template>
 
 <script>
+  import badge from '@/mixin/tabbar-badge.js'
   export default {
+    mixins: [badge],
     data() {
       return {
         wh: 0,
@@ -55,7 +57,6 @@
         const {data: res} = await uni.$http.get('/categories')
         if(res.meta.status !== 200) return uni.$showMsg()
         this.cateList = res.message
-        console.log(this.cateList);
       },
       // 点击左侧列表时
       cate1Change(i) {

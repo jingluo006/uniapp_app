@@ -37,6 +37,7 @@
 </template>
 
 <script>
+  import { mapState, mapMutations, mapGetters} from 'vuex'
   export default {
     data() {
       return {
@@ -69,6 +70,22 @@
       this.goodsId = options.goods_id
       this.getGoodsList()
     },
+    watch: {
+      // 监听总数据的变化
+      total: {
+        handler(newVal) {
+          const findResult = this.options.find(item => item.text === '购物车')
+          if(findResult) {
+            findResult.info = newVal
+          }
+        },
+        immediate: true
+      }
+    },
+    computed: {
+      // 商品总数
+      ...mapGetters('m_cart', ['total'])
+    },
     methods: {
       async getGoodsList() {
         const {
@@ -78,7 +95,7 @@
         })
         if (res.meta.status !== 200) return uni.$showMsg()
         this.goodsList = res.message
-        console.log(res);
+        console.log(this.goodsList);
       },
       // 预览图片
       previewImg(i) {
@@ -89,20 +106,35 @@
       },
       // 底部导航
       onClick(e) {
-        console.log(e);
-        if(e.content.text === '购物车')
-        uni.navigateTo({
-          url: '/pages/cart/cart'
-        })
+        if (e.content.text === '购物车') {
+          uni.switchTab({
+            url: '/pages/cart/cart'
+          })
+        }
       },
       buttonClick(e) {
-      }
+        console.log(e)
+        if(e.content.text === '加入购物车') {
+          const goods = {
+            goods_id: this.goodsList.goods_id,
+            goods_name: this.goodsList.goods_name,
+            goods_price: this.goodsList.goods_price,
+            goods_count: 1,
+            goods_small_logo: this.goodsList.goods_small_logo,
+            goods_state: true
+          }
+          // 存入vuex中
+          this.addToCart(goods)
+        }
+      },
+      // 加入购物车
+      ...mapMutations('m_cart', ['addToCart'])
     },
     filters: {
       numToFixed(num) {
         return Number(num).toFixed(2)
       }
-    }
+    },
   }
 </script>
 
@@ -149,6 +181,7 @@
       color: gray;
     }
   }
+
   .uni-goods-nav {
     position: fixed;
     left: 0;
