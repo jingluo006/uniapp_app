@@ -55,12 +55,15 @@ export default {
   },
 
   getters: {
+    // 勾选条数
     total(state) {
       return state.cart.filter(item => item.goods_state).reduce((total, i) => total += i.goods_count, 0)
     },
+    // 总条数
     allTotal(state) {
       return state.cart.reduce((total, i) => total += i.goods_count, 0)
     },
+    // 总价格
     totalPrice(state) {
       return state.cart.filter(item => item.goods_state).reduce((totalPrice,i) => totalPrice += i.goods_count * i.goods_price, 0)
     }

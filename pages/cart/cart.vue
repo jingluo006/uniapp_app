@@ -8,15 +8,17 @@
       <text>购物车</text>
     </view>
     <!-- 商品项 -->
-    <uni-swiper-action>
-      <block v-for="item in cart" :key="item.goods_id">
-        <uni-swipe-action-item :autoClose="false" :right-options="options" @click="onDeleteClick(item)">
-          <my-goods :goods="item" :radioShow="true" :state="item.goods_state" @radioChangeHandler="radioChange"
-            @numChange="numChange"></my-goods>
-        </uni-swipe-action-item>
-      </block>
-    </uni-swiper-action>
-    
+    <view class="goods-item">
+      <uni-swiper-action>
+        <block v-for="item in cart" :key="item.goods_id">
+          <uni-swipe-action-item :autoClose="false" :right-options="options" @click="onDeleteClick(item)">
+            <my-goods :goods="item" :radioShow="true" :state="item.goods_state" @radioChangeHandler="radioChange"
+              @numChange="numChange"></my-goods>
+          </uni-swipe-action-item>
+        </block>
+      </uni-swiper-action>
+    </view>
+
     <!-- 底部 -->
     <my-settle></my-settle>
   </view>
@@ -46,7 +48,7 @@
     },
     methods: {
       // 更新商品状态        更新商品数量
-      ...mapMutations('m_cart', ['updateGoodsState', 'updataGoodsNum','removeGoods']),
+      ...mapMutations('m_cart', ['updateGoodsState', 'updataGoodsNum', 'removeGoods']),
       // 单选框状态改变
       radioChange(goodsInfo) {
         this.updateGoodsState(goodsInfo)
@@ -78,5 +80,8 @@
       font-size: 28rpx;
       padding-left: 10rpx;
     }
+  }
+  .goods-item {
+    margin-bottom: 50px;
   }
 </style>
